@@ -5,27 +5,35 @@ import {Button} from "react-native"
 
 var nameVar=""
 
-function GetPass(vars){
+function Database(vars){
     return(
         <div>
             <p>database</p>
-            <p>{nameVar}</p>
-            <Button onPress={getTest}></Button>
+            <p id="nameVar">{nameVar}</p>
+            <Button onPress={getTest} title="GET"></Button>
         </div>
     )
 }
 
 const getTest = async function(){
-  let list = getDB("test")
+  let dbFetch = await fetch("https://fetch-almita-api.cyclic.app/get/?name=test", {method : 'GET',})
+  .then(function(response) {
+     return response.json(); })
+    .then(function(json) {
+      return json
+    })
+  nameVar=""
+  let list=dbFetch.data
   console.log(list)
-  nameVar="get"
+  for(let reg in list){
+    nameVar+=JSON.stringify(list[reg].test)
+    nameVar+="<br>"
+  }
+  update()
 }
 
-const getDB = async function(col){
-  const ram = collection(db, col);
-  const get = await getDocs(ram)
-  const list = get.docs.map(doc => doc.data());
-  return list
+const update = function(){
+  document.getElementById("nameVar").innerHTML=nameVar
 }
 
-export default GetPass;
+export default Database;
