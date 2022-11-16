@@ -28,7 +28,7 @@ const getTest = async function(){
   for(let reg in list){
     nameVar+=JSON.stringify(list[reg].test)
     nameVar+="<input type='button' value='delete' onclick='"
-    nameVar+='await fetch("https://fetch-almita-api.cyclic.app/get/?name=test", {method : "GET",}).then(function(response) {return response.json(); }).then(function(json) {return json})'
+    nameVar+='await fetch("https://fetch-almita-api.cyclic.app/del/?id="'+list[reg].id+', {method : "GET",}).then(function(response) {return response.json(); }).then(function(json) {return json})'
     nameVar+="' />"
     nameVar+="<br>"
   }
